@@ -106,7 +106,7 @@ export default function Home() {
             drop-shadow-[0_0_10px_#ec4899]
             hover:drop-shadow-[0_0_15px_#a855f7] 
             transition-all duration-750 ease-in-out">
-          CREATOR badge
+          CREATOR BADGE
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
