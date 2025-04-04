@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from "next/link";
 import { 
@@ -31,7 +32,8 @@ const WebsiteButton = ({ site }) => (
     </div>
 );
 
-const Page = () => {
+// Moved the main logic into a separate component to use Suspense
+const BadgeContent = () => {
     const searchParams = useSearchParams();
     const img = searchParams.get('img') || '/avatar.jpg';
     const username = searchParams.get('username') || 'Omargpax';
@@ -55,16 +57,23 @@ const Page = () => {
             <div>
                 <h2 className="text-2xl font-semibold capitalize">{username}</h2>
                 <p className="text-lg italic capitalize">{rol}</p>
-                {/* Social Links */}
                 <div className="flex flex-row items-center gap-2 mt-2">
                     {socials.map((item, index) => (
                         <SocialLink key={index} icon={item.icon} path={item.path} />
                     ))}
                 </div>
-                {/* Website Button */}
                 <WebsiteButton site={site} />
             </div>
         </div>
+    );
+};
+
+// The main page component now wraps BadgeContent in Suspense
+const Page = () => {
+    return (
+        <Suspense fallback={<div>Loading badge...</div>}>
+            <BadgeContent />
+        </Suspense>
     );
 };
 
