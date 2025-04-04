@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 
-const Budge = () => {
+const badge = () => {
     const searchParams = useSearchParams();
     const imageUrl = searchParams.get('imageUrl') || 'https://omargpax.pages.dev/assets/img/omargpax-avatar.jpg';
     const username = searchParams.get('username') || 'Omargpax';
@@ -30,4 +30,4 @@ const Budge = () => {
     );
 };
 
-export default Budge;
+export default badge;

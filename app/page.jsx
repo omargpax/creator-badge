@@ -32,7 +32,7 @@ export default function Home() {
     Object.entries(badgeData).forEach(([key, value]) => {
       if (value) params.append(key, value);
     });
-    return `${window.location.origin}/budge?${params.toString()}`;
+    return `${window.location.origin}/badge?${params.toString()}`;
   };
 
   const BadgeCode = `<iframe src="${generateBadgeUrl()}" width="400" height="200" frameborder="0"></iframe>`;
@@ -106,7 +106,7 @@ export default function Home() {
             drop-shadow-[0_0_10px_#ec4899]
             hover:drop-shadow-[0_0_15px_#a855f7] 
             transition-all duration-750 ease-in-out">
-          CREATOR BUDGE
+          CREATOR badge
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

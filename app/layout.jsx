@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Creator Budge",
-  description: "Generate your own budge creator and use it anywhere.",
+  title: "Creator badge",
+  description: "Generate your own badge creator and use it anywhere.",
 };
 
 export default function RootLayout({ children }) {
