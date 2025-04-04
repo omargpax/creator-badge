@@ -39,7 +39,10 @@ const BadgeContent = () => {
     const username = searchParams.get('username') || 'Omargpax';
     const site = searchParams.get('site') || 'omargpax.vercel.app';
     const rol = searchParams.get('rol') || 'Software Engineer';
-    const backgroundColor = searchParams.get('backgroundColor') || 'bg-gradient-to-r from-blue-800 to-purple-500';
+    const bgc = searchParams.get('bgc') || 'blue-purple';
+
+    const [color1, color2] = bgc.split('-');
+    const backgroundColor = `bg-gradient-to-r from-${color1}-800 to-${color2}-500`;
 
     const socials = [
         { icon: <FaGithub />, path: searchParams.get('ghid') ? `https://github.com/${searchParams.get('ghid')}` : null },
