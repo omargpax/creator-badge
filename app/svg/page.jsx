@@ -88,12 +88,5 @@ const BadgeContent = () => {
     );
 };
 
-const Page = () => {
-    return (
-        <Suspense fallback={<div>Loading badge...</div>}>
-            <BadgeContent />
-        </Suspense>
-    );
-};
 
 export default BadgeContent;
