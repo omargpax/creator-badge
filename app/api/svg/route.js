@@ -91,7 +91,7 @@ export async function GET(request) {
                                 </div>
                             `).join('')}
                         </div>
-                        <a href="https://${site}" target="_blank" style="display: inline-block; margin-top: 8px; padding: 8px 16px; background: rgba(0, 0, 0, 0.2); border-radius: 6px; color: white; text-decoration: none;">${site}</a>
+                        <p style="display: inline-block; margin-top: 8px; padding: 8px 16px; background: rgba(0, 0, 0, 0.2); border-radius: 6px; color: white; text-decoration: none;">${site}</p>
                     </div>
                 </div>
             </foreignObject>
