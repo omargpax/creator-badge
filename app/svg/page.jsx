@@ -54,8 +54,8 @@ const BadgeContent = () => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 400 200"
-            className="w-[600px] h-auto"
+            width="400px" height="fit-content" 
+            direction="ltr"
         >
             <foreignObject x="0" y="0" width="400" height="200">
                 <div className={`${styles.badgeContainer} ${backgroundColor}`}>
@@ -96,4 +96,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default BadgeContent;
