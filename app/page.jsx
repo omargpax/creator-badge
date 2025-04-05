@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaGithub, FaLinkedinIn, FaYoutube, FaDeviantart, FaInstagram, FaTwitch, FaTiktok } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaYoutube, FaDeviantart, FaInstagram, FaTwitch, FaTiktok, FaArrowAltCircleRight } from "react-icons/fa";
 import { GRADIENTS } from '@/data/gradients';
 
 const PreviewBadge = ({ badgeData }) => {
@@ -20,16 +20,16 @@ const PreviewBadge = ({ badgeData }) => {
   const gradientClass = GRADIENTS[badgeData.bgc] || GRADIENTS['blue-purple'];
 
   return (
-    <div className={`flex md:min-w-[400px] md:min-h-[150px] max-w-[600px] w-fit items-start p-4 rounded-lg overflow-hidden ${gradientClass}`}>
+    <div className={`flex sm:min-w-[400px] sm:min-h-[150px] sm:w-fit w-fit h-fit items-start p-4 rounded-lg overflow-hidden ${gradientClass}`}>
       <img
         src={badgeData.img}
         alt="Perfil"
-        className="rounded-md mr-4 w-40 h-40 object-cover"
+        className="sm:w-40 sm:h-40 h-30 w-30% rounded-md mr-4 object-cover"
       />
       <div>
-        <h2 className="text-2xl font-semibold capitalize">{badgeData.username}</h2>
-        <p className="text-lg italic capitalize">{badgeData.rol}</p>
-        <div className="flex flex-row items-center gap-2 mt-2">
+        <h2 className="sm:text-2xl text-xl font-semibold capitalize">{badgeData.username}</h2>
+        <p className="sm:text-lg text-sm italic capitalize mt-[-5] sm:mt-0">{badgeData.rol}</p>
+        <div className="flex flex-row items-center gap-2 sm:mt-4 mt-1">
           {socials.map((item, index) => (
             item.path && (
               <a
@@ -37,25 +37,21 @@ const PreviewBadge = ({ badgeData }) => {
                 href={item.path}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 border border-white rounded-full flex justify-center items-center text-white text-base hover:bg-white hover:text-gray-900 hover:transition-all duration-500"
+                className="sm:w-9 sm:h-9 w-7 h-7 border border-white rounded-full flex justify-center items-center text-white text-sm sm:text-base hover:bg-white hover:text-gray-900 hover:transition-all duration-500"
               >
                 {item.icon}
               </a>
             )
           ))}
         </div>
-        <div className="flex items-center justify-between bg-gray-200 rounded-md p-2 mt-2 bg-gray-900/20 w-full">
+        <div className="flex items-center justify-between rounded-md p-2 mt-2 bg-gray-900/20 w-full">
           <span className="text-sm mr-2 text-gray-100">{badgeData.site}</span>
-          <a
-            href={`https://${badgeData.site}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => window.open(`https://${badgeData.site}`, '_blank')}
             className="text-white/50 transition-colors ease-in-out duration-300 hover:text-white cursor-pointer"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-              <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" clipRule="evenodd" />
-            </svg>
-          </a>
+            <FaArrowAltCircleRight />
+          </button>
         </div>
       </div>
     </div>
@@ -64,7 +60,7 @@ const PreviewBadge = ({ badgeData }) => {
 
 // Componente para el formulario de configuración
 const BadgeForm = ({ badgeData, handleInputChange }) => (
-  <div className="bg-gray-800 p-6 rounded-lg shadow-md">
+  <div className="bg-gray-800 p-6 rounded-lg shadow-md order-2 md:order-1">
     <h2 className="text-xl font-semibold mb-4 text-gray-200">Configure your badge</h2>
     <div className="space-y-4">
       <InputField label="Image URL" name="img" value={badgeData.img} onChange={handleInputChange} placeholder="https://ejemplo.com/avatar.jpg" />
@@ -124,12 +120,12 @@ const SocialMediaFields = ({ badgeData, handleInputChange }) => {
   return (
     <div className="pt-4 border-t border-gray-200/20">
       <h3 className="text-lg font-medium mb-3">Social media</h3>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {socialPlatforms.map(({ label, name, prefix }) => (
           <div key={name}>
             <label className="block text-sm font-medium text-gray-300 mb-1">{label}</label>
             <div className="flex">
-              <span className="bg-gray-600 inline-flex items-center px-3 rounded-l-md bg-gray-50 text-gray-50 text-sm">
+              <span className="bg-gray-600 inline-flex items-center px-3 rounded-l-md text-gray-50 text-sm">
                 {prefix}
               </span>
               <input
@@ -193,7 +189,7 @@ export default function Home() {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <BadgeForm badgeData={badgeData} handleInputChange={handleInputChange} />
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-md order-1 md:order-2">
             <h2 className="text-xl font-semibold mb-4">Preview</h2>
             <div className="flex justify-center mb-6">
               <PreviewBadge badgeData={badgeData} />
