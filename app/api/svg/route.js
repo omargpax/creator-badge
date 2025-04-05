@@ -76,7 +76,7 @@ function getGradientColors(bgc) {
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
 
-    const img = searchParams.get('img') || '/avatar.jpg';
+    const img = searchParams.get('img') || 'https://creator-badge.vercel.app/avatar.jpg';
     const username = searchParams.get('username') || 'Omargpax';
     const rol = searchParams.get('rol') || 'Software Engineer';
     const site = searchParams.get('site') || 'omargpax.vercel.app';
