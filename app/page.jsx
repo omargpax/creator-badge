@@ -3,15 +3,16 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaGithub, FaLinkedinIn, FaYoutube, FaDeviantart, FaInstagram, FaTwitch, FaTiktok, FaArrowAltCircleRight } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaYoutube, FaInstagram, FaTwitch, FaTiktok, FaArrowAltCircleRight } from "react-icons/fa";
 import { GRADIENTS } from '@/data/gradients';
+import { FaXTwitter, FaRegCopy } from "react-icons/fa6";
 
 const PreviewBadge = ({ badgeData }) => {
   const socials = [
     { icon: <FaGithub />, path: badgeData.ghid && `https://github.com/${badgeData.ghid}` },
     { icon: <FaLinkedinIn />, path: badgeData.lnid && `https://www.linkedin.com/in/${badgeData.lnid}` },
     { icon: <FaYoutube />, path: badgeData.ybid && `https://www.youtube.com/@${badgeData.ybid}` },
-    { icon: <FaDeviantart />, path: badgeData.dtid && `https://www.deviantart.com/${badgeData.dtid}` },
+    { icon: <FaXTwitter />, path: badgeData.xid && `https://x.com/${badgeData.xid}` },
     { icon: <FaInstagram />, path: badgeData.igid && `https://www.instagram.com/${badgeData.igid}` },
     { icon: <FaTwitch />, path: badgeData.twid && `https://www.twitch.tv/${badgeData.twid}` },
     { icon: <FaTiktok />, path: badgeData.ttid && `https://www.tiktok.com/@${badgeData.ttid}` },
@@ -111,7 +112,7 @@ const SocialMediaFields = ({ badgeData, handleInputChange }) => {
     { label: 'GitHub', name: 'ghid', prefix: 'github.com/' },
     { label: 'LinkedIn', name: 'lnid', prefix: 'linkedin.com/in/' },
     { label: 'YouTube', name: 'ybid', prefix: 'youtube.com/@' },
-    { label: 'DeviantArt', name: 'dtid', prefix: 'deviantart.com/' },
+    { label: 'X (twitter)', name: 'xid', prefix: 'x.com/' },
     { label: 'Instagram', name: 'igid', prefix: 'instagram.com/' },
     { label: 'Twitch', name: 'twid', prefix: 'twitch.tv/' },
     { label: 'TikTok', name: 'ttid', prefix: 'tiktok.com/@' },
@@ -155,7 +156,7 @@ export default function Home() {
     ghid: '',
     lnid: '',
     ybid: '',
-    dtid: '',
+    xid: '',
     igid: '',
     twid: '',
     ttid: ''
@@ -179,12 +180,21 @@ export default function Home() {
     return `${window.location.origin}/badge?${params.toString()}`;
   };
 
+  const generateBadgeUrlSVG = () => {
+    if (!isMounted) return '';
+    const params = new URLSearchParams();
+    Object.entries(badgeData).forEach(([key, value]) => {
+      if (value) params.append(key, value);
+    });
+    return `${window.location.origin}/api/svg?${params.toString()}`;
+  };
+
   const BadgeCode = `<iframe src="${generateBadgeUrl()}" width="400" height="170" frameborder="0"></iframe>`;
 
   return (
     <div className="min-h-screen bg-gray-950 py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8 md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 animate-pulse drop-shadow-[0_0_10px_#ec4899] hover:drop-shadow-[0_0_15px_#a855f7] transition-all duration-750 ease-in-out">
+        <h1 className="text-3xl font-bold text-center mb-8 md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 drop-shadow-[0_0_10px_#ec4899] cursor-default">
           CREATOR BADGE
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -197,24 +207,51 @@ export default function Home() {
             {isMounted && (
               <>
                 <div className="mt-8">
-                  <h3 className="text-lg font-medium mb-2">Incorporate</h3>
+                  <h3 className="text-lg font-medium">Insert badge</h3>
                   <p className="text-sm text-gray-400 mb-3">Copy this code to embed the badge on your website:</p>
-                  <div className="bg-gray-900 rounded-md p-4 overflow-x-auto">
+                  <div className="bg-gray-900 rounded-md p-4 overflow-x-auto relative">
                     <pre className="text-sm text-gray-100">{BadgeCode}</pre>
+                    <button onClick={() => {
+                      navigator.clipboard.writeText(BadgeCode);
+                      // Aquí puedes agregar feedback visual si lo deseas
+                    }}
+                      className="absolute right-0 bg-gray-900 h-full bottom-0 px-2 text-gray-400 hover:text-white transition-colors cursor-copy"
+                      title="Copy to clipboard">
+                      <FaRegCopy />
+                    </button>
                   </div>
                 </div>
                 <div className="mt-4 mb-6">
-                  <h3 className="text-lg font-medium mb-2">Badge URL</h3>
+                  <h3 className="text-lg font-medium">Badge URL</h3>
                   <p className="text-sm text-gray-400 mb-3">You can also use this URL directly:</p>
-                  <div className="bg-gray-900 rounded-md p-4 overflow-x-auto">
-                    <p className="text-sm text-gray-100 break-all">{generateBadgeUrl()}</p>
+                  <div className="bg-gray-900 rounded-md p-4 overflow-x-auto relative">
+                    <p className="text-sm text-gray-100 break-all">{generateBadgeUrlSVG()}</p>
+                    <button onClick={() => {
+                      navigator.clipboard.writeText(generateBadgeUrlSVG());
+                      // Aquí puedes agregar feedback visual si lo deseas
+                    }}
+                      className="absolute right-2 bottom-2 p-1 text-gray-400 hover:text-white transition-colors cursor-copy"
+                      title="Copy to clipboard">
+                      <FaRegCopy />
+                    </button>
                   </div>
                 </div>
-                <a href="https://www.buymeacoffee.com/omargpax" target="_blank">
-                  <Image src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" width={210} height={60} />
-                </a>
+                <div className="mt-4">
+                  <h3 className="text-lg font-medium">Tock, tock</h3>
+                  <div className="inline-flex items-center gap-2">
+                    <p className="text-sm text-gray-400 mb-3">Thank you for your <b>support</b> </p>
+                    <div className="animate-bounce">
+                      <sup>🤍</sup> 
+                    </div>
+                  </div>
+                </div>
               </>
             )}
+            <div className="max-w-[200px]">
+              <a href="https://www.buymeacoffee.com/omargpax" target="_blank">
+                <Image src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" width={210} height={60} />
+              </a>
+            </div>
           </div>
         </div>
       </div>

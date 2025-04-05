@@ -3,9 +3,10 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
-    FaGithub, FaLinkedinIn, FaYoutube, FaDeviantart,
+    FaGithub, FaLinkedinIn, FaYoutube,
     FaInstagram, FaTwitch, FaTiktok, FaArrowAltCircleRight
 } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
 
 // Common styles
 const styles = {
@@ -45,7 +46,7 @@ const BadgeContent = () => {
         { icon: <FaGithub />, show: searchParams.get('ghid') === 'true' },
         { icon: <FaLinkedinIn />, show: searchParams.get('lnid') === 'true' },
         { icon: <FaYoutube />, show: searchParams.get('ybid') === 'true' },
-        { icon: <FaDeviantart />, show: searchParams.get('dtid') === 'true' },
+        { icon: <FaSquareXTwitter />, show: searchParams.get('dtid') === 'true' },
         { icon: <FaInstagram />, show: searchParams.get('igid') === 'true' },
         { icon: <FaTwitch />, show: searchParams.get('twid') === 'true' },
         { icon: <FaTiktok />, show: searchParams.get('ttid') === 'true' },

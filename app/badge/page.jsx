@@ -4,9 +4,10 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from "next/link";
 import { 
-    FaGithub, FaLinkedinIn, FaYoutube, FaDeviantart, 
+    FaGithub, FaLinkedinIn, FaYoutube, 
     FaArrowAltCircleRight, FaInstagram, FaTwitch, FaTiktok 
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 // Common styles
 const styles = {
@@ -57,7 +58,7 @@ const BadgeContent = () => {
         { icon: <FaGithub />, path: searchParams.get('ghid') ? `https://github.com/${searchParams.get('ghid')}` : null },
         { icon: <FaLinkedinIn />, path: searchParams.get('lnid') ? `https://www.linkedin.com/in/${searchParams.get('lnid')}` : null },
         { icon: <FaYoutube />, path: searchParams.get('ybid') ? `https://www.youtube.com/@${searchParams.get('ybid')}` : null },
-        { icon: <FaDeviantart />, path: searchParams.get('dtid') ? `https://www.deviantart.com/${searchParams.get('dtid')}` : null },
+        { icon: <FaXTwitter />, path: searchParams.get('xid') ? `https://x.com/${searchParams.get('xid')}` : null },
         { icon: <FaInstagram />, path: searchParams.get('igid') ? `https://www.instagram.com/${searchParams.get('igid')}` : null },
         { icon: <FaTwitch />, path: searchParams.get('twid') ? `https://www.twitch.tv/${searchParams.get('twid')}` : null },
         { icon: <FaTiktok />, path: searchParams.get('ttid') ? `https://www.tiktok.com/@${searchParams.get('ttid')}` : null },
