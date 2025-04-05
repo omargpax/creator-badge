@@ -180,6 +180,7 @@ export default function Home() {
     return `${window.location.origin}/badge?${params.toString()}`;
   };
 
+  //TODO: using /api/route.js or /svg to create an SVG badge to be inserted into a markdown
   const generateBadgeUrlSVG = () => {
     if (!isMounted) return '';
     const params = new URLSearchParams();
@@ -225,9 +226,9 @@ export default function Home() {
                   <h3 className="text-lg font-medium">Badge URL</h3>
                   <p className="text-sm text-gray-400 mb-3">You can also use this URL directly:</p>
                   <div className="bg-gray-900 rounded-md p-4 overflow-x-auto relative">
-                    <p className="text-sm text-gray-100 break-all">{generateBadgeUrlSVG()}</p>
+                    <p className="text-sm text-gray-100 break-all">{generateBadgeUrl()}</p>
                     <button onClick={() => {
-                      navigator.clipboard.writeText(generateBadgeUrlSVG());
+                      navigator.clipboard.writeText(generateBadgeUrl());
                       // Aquí puedes agregar feedback visual si lo deseas
                     }}
                       className="absolute right-2 bottom-2 p-1 text-gray-400 hover:text-white transition-colors cursor-copy"

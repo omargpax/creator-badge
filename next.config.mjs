@@ -10,15 +10,6 @@ const nextConfig = {
             },
         ],
     },
-    async redirects() {
-        return [
-            {
-                source: '/svg',
-                destination: '/api/svg',
-                permanent: true,
-            },
-        ];
-    },
 };
 
 export default nextConfig;
