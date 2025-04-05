@@ -88,5 +88,11 @@ const BadgeContent = () => {
     );
 };
 
-
-export default BadgeContent;
+// Export BadgeContent wrapped in Suspense
+export default function SvgPage() {
+    return (
+        <Suspense fallback={<div>Loading badge...</div>}>
+            <BadgeContent />
+        </Suspense>
+    );
+}
