@@ -12,15 +12,15 @@ import { FaXTwitter } from "react-icons/fa6";
 // Common styles
 const styles = {
     socialLink: "sm:w-9 sm:h-9 w-7 h-7 border border-white rounded-full flex justify-center items-center text-white text-sm sm:text-base hover:bg-white hover:text-gray-900 hover:transition-all duration-500",
-    websiteButton: "flex items-center justify-between rounded-md p-2 mt-2 bg-gray-900/20 w-full",
+    websiteButton: "flex items-center justify-between rounded-md p-2 mt-2 bg-gray-900/20 sm:w-full w-fit sm:mt-3",
     websiteButtonText: "text-sm mr-2 text-gray-100",
     websiteButtonIcon: "text-white/50 transition-colors ease-in-out duration-300 hover:text-white cursor-pointer",
-    badgeContainer: "flex sm:min-w-[400px] sm:min-h-[150px] sm:w-fit w-fit h-fit items-start p-4 rounded-lg overflow-hidden relative",
-    profileImage: "sm:w-40 sm:h-40 h-30 w-30% rounded-md mr-4 object-cover",
-    username: "sm:text-2xl text-xl font-semibold capitalize",
+    badgeContainer: "flex sm:min-h-[150px] w-full h-fit items-start p-4 rounded-lg overflow-hidden relative",
+    profileImage: "sm:w-40 sm:h-40 h-33 w-30% rounded-md mr-4 object-cover",
+    username: "sm:text-2xl text-xl font-semibold capitalize whitespace-nowrap",
     role: "sm:text-lg text-sm italic capitalize mt-[-5] sm:mt-0",
-    socialLinksContainer: "flex flex-row items-center gap-2 sm:mt-4 mt-1 ",
-    buttonMusic: "absolute top-2 right-2 bg-gray-900/30 p-2 rounded-full text-white hover:bg-gray-900/70 transition-all duration-300 cursor-pointer",
+    socialLinksContainer: "flex flex-row items-center gap-2 sm:mt-4 mt-5",
+    buttonMusic: "absolute top-2 right-2 bg-gray-900/30 p-2 rounded-full text-white hover:bg-gray-900/70 transition-all duration-300 cursor-pointer z-9",
 };
 
 const SocialLink = ({ icon, path }) => {
@@ -56,6 +56,7 @@ const BadgeContent = () => {
 
     const [color1, color2] = bgc.split('-');
     const backgroundColor = `bg-gradient-to-r from-${color1}-800 to-${color2}-500`;
+    const mask = `bg-gradient-to-r from-transparent to-${color2}-500`;
 
     const socials = [
         { icon: <FaGithub />, path: searchParams.get('ghid') ? `https://github.com/${searchParams.get('ghid')}` : null },
@@ -83,6 +84,7 @@ const BadgeContent = () => {
 
     return (
         <div className={`${styles.badgeContainer} ${backgroundColor}`}>
+            <div className={`absolute top-0 right-0 p-2 rounded-md h-15 w-20 z-2 ${mask}` }></div>
             <button
                 onClick={playMusic}
                 className={styles.buttonMusic}

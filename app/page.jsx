@@ -49,7 +49,7 @@ const PreviewBadge = ({ badgeData }) => {
       <img
         src={badgeData.img}
         alt="Perfil"
-        className="sm:w-40 sm:h-40 h-30 w-30% rounded-md mr-4 object-cover"
+        className="sm:w-40 sm:h-40 h-33 w-30% rounded-md mr-4 object-cover"
       />
       <div>
         <h2 className="sm:text-2xl text-xl font-semibold capitalize">{badgeData.username}</h2>
@@ -220,7 +220,7 @@ export default function Home() {
     return `${window.location.origin}/api/svg?${params.toString()}`;
   };
 
-  const BadgeCode = `<iframe src="${generateBadgeUrl()}" width="400" height="170" frameborder="0"></iframe>`;
+  const BadgeCode = `<iframe style="border-radius:15px" src="${generateBadgeUrl()}" width="400" height="170" frameborder="0"></iframe>`;
 
   return (
     <div className="min-h-screen bg-gray-950 py-8 px-4">
@@ -245,35 +245,40 @@ export default function Home() {
               <>
                 <div className="mt-8">
                   <h3 className="text-lg font-medium">Insert badge</h3>
-                  <p className="text-sm text-gray-400 mb-3">Copy this code to embed the badge on your website:</p>
-                  <div className="bg-gray-900 rounded-md p-4 overflow-x-auto relative">
-                    <pre className="text-sm text-gray-100">{BadgeCode}</pre>
-                    <button onClick={() => {
-                      navigator.clipboard.writeText(BadgeCode);
-                      // Aquí puedes agregar feedback visual si lo deseas
-                    }}
-                      className="absolute right-0 bg-gray-900 h-full bottom-0 px-2 text-gray-400 hover:text-white transition-colors cursor-copy"
-                      title="Copy to clipboard">
+                  <p className="text-sm text-gray-400 mb-2">Copy this code to embed the badge on your website:</p>
+                  <div className="inline-flex h-[80px]">
+                    <div className="bg-gray-900 rounded-bl-md rounded-tl-md p-4 h-full overflow-y-scroll">
+                      <code className="text-sm text-gray-100 break-all">{BadgeCode}</code>
+                    </div>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(BadgeCode);
+                        // Aquí puedes agregar feedback visual si lo deseas
+                      }}
+                      className="p-4 bg-gray-900 rounded-tr-md rounded-br-md text-gray-400 hover:text-white hover:bg-gray-950/70 ease-in transition-colors cursor-copy h-full"
+                      title="Copy to clipboard"
+                    >
                       <FaRegCopy />
                     </button>
                   </div>
                 </div>
                 <div className="mt-4 mb-6">
                   <h3 className="text-lg font-medium">Badge URL</h3>
-                  <p className="text-sm text-gray-400 mb-3">You can also use this URL directly:</p>
-                  <div className="bg-gray-900 rounded-md p-4 overflow-x-auto relative">
-                    <p className="text-sm text-gray-100 break-all">{generateBadgeUrl()}</p>
+                  <p className="text-sm text-gray-400 mb-2">You can also use this URL directly:</p>
+                  <div className="inline-flex w-full gap-2">
+                    <div className="bg-gray-900 rounded-md p-4 overflow-x-auto">
+                      <pre className="text-sm text-gray-100">{generateBadgeUrl()}</pre>
+                    </div>
                     <button onClick={() => {
                       navigator.clipboard.writeText(generateBadgeUrl());
-                      // Aquí puedes agregar feedback visual si lo deseas
                     }}
-                      className="absolute right-2 bottom-2 p-1 text-gray-400 hover:text-white transition-colors cursor-copy"
+                      className="bg-gray-900 p-4 text-gray-400 hover:text-white hover:bg-gray-950/70 ease-in transition-colors cursor-copy rounded-md"
                       title="Copy to clipboard">
                       <FaRegCopy />
                     </button>
                   </div>
                 </div>
-                <div className="mt-4">
+                <div className="mt-2">
                   <h3 className="text-lg font-medium">Tock, tock</h3>
                   <div className="inline-flex items-center gap-2">
                     <p className="text-sm text-gray-400 mb-3">Thank you for your <b>support</b> </p>
