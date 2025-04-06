@@ -96,7 +96,7 @@ const BadgeForm = ({ badgeData, handleInputChange }) => (
       <InputField label="Website" name="site" value={badgeData.site} onChange={handleInputChange} placeholder="ejemplo.com" />
       <div className="inline-flex gap-4">
         <SelectField label="Background" name="bgc" value={badgeData.bgc} onChange={handleInputChange} options={Object.keys(GRADIENTS)} />
-        <SelectField label="Sound" name="sound" value={badgeData.sound} onChange={handleInputChange} options={['DMONS', 'FYTCH', 'MXTRON', 'SUPXR']} />
+        <SelectField label="Sound" name="sound" value={badgeData.sound} onChange={handleInputChange} options={['CH1LLS','DMONS', 'FYTCH', 'MXTRON', 'SUPXR']} />
       </div>
       <SocialMediaFields badgeData={badgeData} handleInputChange={handleInputChange} />
     </div>
@@ -220,7 +220,7 @@ export default function Home() {
     return `${window.location.origin}/api/svg?${params.toString()}`;
   };
 
-  const BadgeCode = `<iframe style="border-radius:15px" src="${generateBadgeUrl()}" width="400" height="170" frameborder="0"></iframe>`;
+  const BadgeCode = `<iframe style="border-radius:15px" src="${generateBadgeUrl()}" width="400" height="145" frameborder="0" title="Creator Badge" className="rounded-xl"></iframe>`;
 
   return (
     <div className="min-h-screen bg-gray-950 py-8 px-4">
