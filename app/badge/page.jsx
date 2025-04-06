@@ -1,11 +1,11 @@
 'use client';
-
+import { useState } from 'react';
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from "next/link";
-import { 
-    FaGithub, FaLinkedinIn, FaYoutube, 
-    FaArrowAltCircleRight, FaInstagram, FaTwitch, FaTiktok 
+import {
+    FaGithub, FaLinkedinIn, FaYoutube, FaMusic,
+    FaArrowAltCircleRight, FaInstagram, FaTwitch, FaTiktok
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
@@ -15,11 +15,12 @@ const styles = {
     websiteButton: "flex items-center justify-between rounded-md p-2 mt-2 bg-gray-900/20 w-full",
     websiteButtonText: "text-sm mr-2 text-gray-100",
     websiteButtonIcon: "text-white/50 transition-colors ease-in-out duration-300 hover:text-white cursor-pointer",
-    badgeContainer: "flex sm:min-w-[400px] sm:min-h-[150px] sm:w-fit w-fit h-fit items-start p-4 rounded-lg overflow-hidden",
+    badgeContainer: "flex sm:min-w-[400px] sm:min-h-[150px] sm:w-fit w-fit h-fit items-start p-4 rounded-lg overflow-hidden relative",
     profileImage: "sm:w-40 sm:h-40 h-30 w-30% rounded-md mr-4 object-cover",
     username: "sm:text-2xl text-xl font-semibold capitalize",
     role: "sm:text-lg text-sm italic capitalize mt-[-5] sm:mt-0",
     socialLinksContainer: "flex flex-row items-center gap-2 sm:mt-4 mt-1 ",
+    buttonMusic: "absolute top-2 right-2 bg-gray-900/30 p-2 rounded-full text-white hover:bg-gray-900/70 transition-all duration-300 cursor-pointer",
 };
 
 const SocialLink = ({ icon, path }) => {
@@ -44,12 +45,14 @@ const WebsiteButton = ({ site }) => (
 );
 
 const BadgeContent = () => {
+    const [isPlaying, setIsPlaying] = useState(false);
     const searchParams = useSearchParams();
     const img = searchParams.get('img') || '/avatar.jpg';
     const username = searchParams.get('username') || 'Omargpax';
     const site = searchParams.get('site') || 'omargpax.vercel.app';
     const rol = searchParams.get('rol') || 'Software Engineer';
     const bgc = searchParams.get('bgc') || 'blue-purple';
+    const sound = searchParams.get('sound') || 'FYTCH';
 
     const [color1, color2] = bgc.split('-');
     const backgroundColor = `bg-gradient-to-r from-${color1}-800 to-${color2}-500`;
@@ -64,8 +67,30 @@ const BadgeContent = () => {
         { icon: <FaTiktok />, path: searchParams.get('ttid') ? `https://www.tiktok.com/@${searchParams.get('ttid')}` : null },
     ];
 
+    const playMusic = () => {
+        const audio = document.getElementById('badge-music');
+        if (audio) {
+            audio.volume = 0.1; // volume 10%
+            if (audio.paused) {
+                audio.play();
+                setIsPlaying(true);
+            } else {
+                audio.pause();
+                setIsPlaying(false);
+            }
+        }
+    };
+
     return (
         <div className={`${styles.badgeContainer} ${backgroundColor}`}>
+            <button
+                onClick={playMusic}
+                className={styles.buttonMusic}
+                title="Play Music"
+            >
+                <FaMusic className={isPlaying ? 'animate-spin ease-in-out duration-1000' : ''} />
+            </button>
+            <audio id="badge-music" src={`/music/${sound}.mp3`} preload="auto"></audio>
             <img src={img} alt="Perfil" className={styles.profileImage} />
             <div>
                 <h2 className={styles.username}>{username}</h2>

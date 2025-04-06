@@ -1,7 +1,7 @@
 ## Creator Badge
 A place to customize your badge as a content creator or whatever niche you specialize in.
 
-![hypr](public/img/screen-preview.png)
+![preview](public/img/site-preview.png)
 
 # Nomenclature
 Commit nomenclature:
