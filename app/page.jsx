@@ -6,6 +6,14 @@ import Image from 'next/image';
 import { FaGithub, FaLinkedinIn, FaYoutube, FaInstagram, FaTwitch, FaTiktok, FaArrowAltCircleRight, FaMusic } from "react-icons/fa";
 import { GRADIENTS } from '@/data/gradients';
 import { FaXTwitter, FaRegCopy } from "react-icons/fa6";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 const PreviewBadge = ({ badgeData }) => {
   const [isPlaying, setIsPlaying] = useState(false); // for music bg
@@ -94,9 +102,9 @@ const BadgeForm = ({ badgeData, handleInputChange }) => (
         <InputField label="Role" name="rol" value={badgeData.rol} onChange={handleInputChange} />
       </div>
       <InputField label="Website" name="site" value={badgeData.site} onChange={handleInputChange} placeholder="ejemplo.com" />
-      <div className="inline-flex gap-4">
+      <div className="grid grid-rows-1 grid-cols-2 gap-4 w-full">
         <SelectField label="Background" name="bgc" value={badgeData.bgc} onChange={handleInputChange} options={Object.keys(GRADIENTS)} />
-        <SelectField label="Sound" name="sound" value={badgeData.sound} onChange={handleInputChange} options={['CH1LLS','DMONS', 'FYTCH', 'MXTRON', 'SUPXR']} />
+        <SelectField label="Sound" name="sound" value={badgeData.sound} onChange={handleInputChange} options={['CH1LLS', 'DMONS', 'FYTCH', 'MXTRON', 'SUPXR']} />
       </div>
       <SocialMediaFields badgeData={badgeData} handleInputChange={handleInputChange} />
     </div>
@@ -112,7 +120,7 @@ const InputField = ({ label, name, value, onChange, placeholder }) => (
       name={name}
       value={value}
       onChange={onChange}
-      className="w-full p-2 border border-gray-300/20 rounded-md"
+      className="w-full p-2 border border-gray-300/20 rounded-md focus:outline-0 focus:bg-black/20"
       placeholder={placeholder}
     />
   </div>
@@ -122,16 +130,18 @@ const InputField = ({ label, name, value, onChange, placeholder }) => (
 const SelectField = ({ label, name, value, onChange, options }) => (
   <div>
     <label className="block text-sm font-medium text-gray-300 mb-1">{label}</label>
-    <select
-      name={name}
-      value={value}
-      onChange={onChange}
-      className="w-full p-2 border border-gray-300/20 rounded-md"
-    >
-      {options.map((option) => (
-        <option key={option} value={option}>{option.replace('-', ' ')}</option>
-      ))}
-    </select>
+    <Select onValueChange={(value) => onChange({ target: { name, value } })}>
+      <SelectTrigger className="w-full cursor-pointer hover:bg-gray-900/50 data-[state=open]:bg-gray-900 transition-colors border-gray-700">
+        <SelectValue placeholder={value} />
+      </SelectTrigger>
+      <SelectContent className="bg-gray-900 border-2 border-gray-700 rounded-md">
+        {options.map((option) => (
+          <SelectItem key={option} value={option} className="cursor-pointer hover:bg-white/10">
+            {option.replace('-', ' ')}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   </div>
 );
 
@@ -163,7 +173,7 @@ const SocialMediaFields = ({ badgeData, handleInputChange }) => {
                 name={name}
                 value={badgeData[name]}
                 onChange={handleInputChange}
-                className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300/20"
+                className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300/20 focus:outline-0 focus:bg-black/20"
                 placeholder="username"
               />
             </div>
