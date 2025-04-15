@@ -32,16 +32,29 @@ const PreviewBadge = ({ badgeData }) => {
   const playMusic = () => {
     const audio = document.getElementById('badge-music');
     if (audio) {
-      audio.volume = 0.1; // volume 10%
+      audio.volume = 0.2; // volume 20%
       if (audio.paused) {
         audio.play();
         setIsPlaying(true);
+  
+        // stop when the sound ends
+        audio.onended = () => {
+          setIsPlaying(false);
+        };
       } else {
         audio.pause();
         setIsPlaying(false);
       }
     }
   };
+
+  useEffect(() => {
+    const audio = document.getElementById('badge-music');
+    if (audio) {
+      audio.pause(); // stop the actual sound
+      setIsPlaying(false); 
+    }
+  }, [badgeData.sound]);
 
   return (
     <div className={`relative flex sm:min-w-[400px] sm:min-h-[150px] sm:w-fit w-fit h-fit items-start p-4 rounded-lg overflow-hidden ${gradientClass}`}>
